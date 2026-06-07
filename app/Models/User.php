@@ -11,11 +11,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
-        use HasFactory, Notifiable, SoftDeletes;
+    use HasFactory, Notifiable, SoftDeletes;
     protected $table = 'users';
     protected $fillable = [
         'user_name',
         'password',
+        'email',
+        'Nickname ',
     ];
     protected $hidden = [
         'password'
