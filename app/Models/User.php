@@ -22,4 +22,7 @@ class User extends Authenticatable
     protected $hidden = [
         'password'
     ];
+        public function Reseña(){
+        return $this->hasMany(Reseña::class, 'user_id', 'id');
+    }
 }
