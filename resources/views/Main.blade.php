@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragaria - Catálogo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans antialiased text-gray-900 flex h-screen overflow-hidden">
+
+    <aside class="w-64 bg-white border-r border-gray-200 flex flex-col h-full">
+        <div class="p-6 flex-1 overflow-y-auto">
+            <h1 class="text-2xl font-bold mb-6">Fragaria</h1>
+
+            <div class="bg-gray-50 p-3 rounded-lg mb-6">
+                <p class="font-bold text-sm">@cesarmora</p>
+                <p class="text-xs text-gray-500">César Mora</p>
+            </div>
+
+            <div class="mb-6">
+                <input type="text" placeholder="Buscar perfume..." class="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
+            </div>
+
+            <div class="mb-6">
+                <h3 class="font-bold text-sm mb-3">Filtrar por marca</h3>
+                <div class="space-y-2 text-sm text-gray-700">
+                    <label class="flex items-center space-x-2"><input type="radio" name="marca" checked class="text-blue-600"> <span>Todas</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="marca" class="text-blue-600"> <span>Dior</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="marca" class="text-blue-600"> <span>Chanel</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="marca" class="text-blue-600"> <span>Versace</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="marca" class="text-blue-600"> <span>YSL</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="marca" class="text-blue-600"> <span>Armani</span></label>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="font-bold text-sm mb-3">Filtrar por familia olfativa</h3>
+                <div class="space-y-2 text-sm text-gray-700">
+                    <label class="flex items-center space-x-2"><input type="radio" name="familia" checked class="text-blue-600"> <span>Todas</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="familia" class="text-blue-600"> <span>Amaderado</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="familia" class="text-blue-600"> <span>Oriental</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="familia" class="text-blue-600"> <span>Cítrico</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="familia" class="text-blue-600"> <span>Dulce</span></label>
+                    <label class="flex items-center space-x-2"><input type="radio" name="familia" class="text-blue-600"> <span>Aromático</span></label>
+                </div>
+            </div>
+        </div>
+
+        <div class="p-4 border-t border-gray-200">
+            <button class="w-full bg-gray-800 text-white text-sm font-semibold py-2 rounded-md hover:bg-gray-700 transition">Cerrar sesión</button>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto p-8">
+        <h2 class="text-3xl font-bold mb-8">Catálogo de perfumes</h2>
+
+        <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex overflow-hidden h-56">
+                <div class="w-2/5 bg-gray-200">
+                    <img src="https://placehold.co/400x500/eaeaea/a3a3a3?text=Perfume+Dior" alt="Dior Sauvage" class="w-full h-full object-cover">
+                </div>
+                <div class="w-3/5 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wide">Dior</p>
+                                <h3 class="text-xl font-bold">Sauvage</h3>
+                            </div>
+                            <form action="{{ route('detalle.main') }}" method="post">
+                                @csrf
+                                <button type="submit" class="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-100 transition">Ver detalle</button>
+                            </form>
+                        </div>
+                        <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded-md mb-3">Amaderado</span>
+                        <p class="text-sm text-gray-600 mb-3">Fragancia fresca y especiada con notas modernas y gran presencia.</p>
+
+                        <div class="text-xs text-gray-700 space-y-1">
+                            <p><span class="font-semibold">Duración:</span> 8 horas</p>
+                            <p><span class="font-semibold">Proyección:</span> <span class="text-blue-600 font-medium">Intenso</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-3">
+                        <div class="text-yellow-400 text-sm">★★★★<span class="text-gray-300">★</span></div>
+                        <span class="text-xs text-gray-500 ml-2">(128 reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex overflow-hidden h-56">
+                <div class="w-2/5 bg-gray-200">
+                    <img src="https://placehold.co/400x500/eaeaea/a3a3a3?text=Perfume+Chanel" alt="Bleu de Chanel" class="w-full h-full object-cover">
+                </div>
+                <div class="w-3/5 p-5 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-1">
+                            <div>
+                                <p class="text-xs text-gray-500 uppercase tracking-wide">Chanel</p>
+                                <h3 class="text-xl font-bold">Bleu de Chanel</h3>
+                            </div>
+                            <form action="{{ route('detalle') }}" method="post">
+                                @csrf
+                                <button type="submit" class="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-100 transition">Ver detalle</button>
+                            </form>
+                        </div>
+                        <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded-md mb-3">Cítrico</span>
+                        <p class="text-sm text-gray-600 mb-3">Perfume elegante y sofisticado con fondo amaderado refinado.</p>
+
+                        <div class="text-xs text-gray-700 space-y-1">
+                            <p><span class="font-semibold">Duración:</span> 7 horas</p>
+                            <p><span class="font-semibold">Proyección:</span> <span class="text-blue-600 font-medium">Moderado</span></p>
+                        </div>
+                    </div>
+                    <div class="flex items-center mt-3">
+                        <div class="text-yellow-400 text-sm">★★★★★</div>
+                        <span class="text-xs text-gray-500 ml-2">(342 reviews)</span>
+                    </div>
+                </div>
+            </div>
+
+            </div>
+    </main>
+
+</body>
+</html>
