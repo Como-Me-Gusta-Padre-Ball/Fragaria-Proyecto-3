@@ -10,12 +10,13 @@ class Perfume extends Model
     protected $fillable = [
         'name',
         'marca',
-        'categiria_olfativa',
+        'categoria_olfativa',
         'duracion',
-        'description',
-        'image_url',
+        'descripcion',
+        'imagen_url',
     ];
-    public function Reseña(){
-    return $this->hasMany(Reseña::class, 'user_id', 'id');
+    public function Reseña()
+    {
+        return $this->hasMany(Reseña::class, 'user_id', 'id');
     }
 }

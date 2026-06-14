@@ -13,11 +13,12 @@ class Reseña extends Model
     protected $fillable = [
         'user_id',
         'comentario',
-        'calificasion',
-        'durasion',
-        'fecha_publicasion',
+        'calificacion',
+        'duracion',
+        'fecha_publicacion',
     ];
-    public function user(){
+    public function user()
+    {
         return $this->belongsTo(User::class, 'user_id');
     }
 }
