@@ -13,8 +13,13 @@
             <h1 class="text-2xl font-bold mb-6">Fragaria</h1>
 
             <div class="bg-gray-50 p-3 rounded-lg mb-6">
-                <p class="font-bold text-sm">@cesarmora</p>
-                <p class="text-xs text-gray-500">César Mora</p>
+                @auth
+                    <p class="font-bold text-sm">{{ auth()->user()->Nickname ?? '@' . auth()->user()->name }}</p>
+                    <p class="text-xs text-gray-500">{{ auth()->user()->name }}</p>
+                @else
+                    <p class="font-bold text-sm">@invitado</p>
+                    <p class="text-xs text-gray-500">Sin iniciar sesión</p>
+                @endauth
             </div>
 
             <div class="mb-6">
@@ -45,9 +50,19 @@
                 </div>
             </div>
         </div>
-
         <div class="p-4 border-t border-gray-200">
-            <button class="w-full bg-gray-800 text-white text-sm font-semibold py-2 rounded-md hover:bg-gray-700 transition">Cerrar sesión</button>
+            @auth
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full bg-gray-800 text-white text-sm font-semibold py-2 rounded-md hover:bg-gray-700 transition cursor-pointer">
+                        Cerrar sesión
+                    </button>
+                </form>
+            @else
+                <a href="{{ route('loginUser') }}" class="block text-center w-full bg-blue-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-blue-500 transition cursor-pointer">
+                    Iniciar sesión
+                </a>
+            @endauth
         </div>
     </aside>
 

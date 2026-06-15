@@ -21,4 +21,8 @@ class Reseña extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+    public function perfume()
+    {
+        return $this->belongsTo(Perfume::class, 'perfume_id');
+    }
 }
