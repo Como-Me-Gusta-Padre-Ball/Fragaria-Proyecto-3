@@ -17,22 +17,20 @@ class SeederInicial extends Seeder
     {
         // ----Usuarios------
         $user1 = User::create([
-            'name' => 'Diego',
-            'email' => 'diego.ruiz@virginiogomez.cl',
+            'user_name' => 'Diego',
+            'email' => 'diego.ruiz@virginiogomez.com',
             'password'=> bcrypt('asd123'),
             'Nickname' => 'DiegoR'
         ]);
+
         $user2 = User::create([
-            'name' => 'Camila',
+            'user_name' => 'Camila',
             'email' => 'camila@example.com',
             'password' => bcrypt('asd123'),
             'Nickname' => 'CamilaC'
         ]);
 
-
-
         //------Reseñas------
-
         $reseña1 = Reseña::create([
             'user_id' => $user1->id,
             'calificacion' => 4,
@@ -42,19 +40,14 @@ class SeederInicial extends Seeder
         ]);
 
         //------Perfumes------
-
         $perfume1 = Perfume::create([
-            'perfume_id'=> 1,
             'name' => 'Aqua Di Gio',
             'marca' => 'Chanel',
-            'description' => 'Aqua Di Gio es una fragancia fresca y acuática para hombres, lanzada por Chanel en 1996. Es conocida por su aroma limpio y refrescante, con notas de cítricos, flores y maderas.',
-            'categoria_olfativa'=>'Amaderado, Aromático',
+            'descripcion' => 'Aqua Di Gio es una fragancia fresca y acuática para hombres, lanzada por Chanel en 1996. Es conocida por su aroma limpio y refrescante, con notas de cítricos, flores y maderas.', // Cambiado de 'description' a 'descripcion'
+            'categoria_olfativa' => 'Amaderado, Aromático',
             'duracion' => $reseña1->duracion,
             'imagen_url' => 'https://www.fragrantica.com/images/perfume/Chanel/Aqua-Di-Gio-1.jpg',
-
         ]);
-
-
 
 
     }
