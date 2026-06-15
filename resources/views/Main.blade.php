@@ -11,7 +11,6 @@
     <aside class="w-64 bg-white border-r border-gray-200 flex flex-col h-full">
         <div class="p-6 flex-1 overflow-y-auto">
             <h1 class="text-2xl font-bold mb-6">Fragaria</h1>
-
             <div class="bg-gray-50 p-3 rounded-lg mb-6">
                 @auth
                     <p class="font-bold text-sm">{{ auth()->user()->Nickname ?? '@' . auth()->user()->name }}</p>
@@ -21,7 +20,6 @@
                     <p class="text-xs text-gray-500">Sin iniciar sesión</p>
                 @endauth
             </div>
-
             <div class="mb-6">
                 <input type="text" placeholder="Buscar perfume..." class="w-full text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:ring-1 focus:ring-blue-500">
             </div>
@@ -59,7 +57,7 @@
                     </button>
                 </form>
             @else
-                <a href="{{ route('loginUser') }}" class="block text-center w-full bg-blue-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-blue-500 transition cursor-pointer">
+                <a href="{{ route('login') }}" class="block text-center w-full bg-blue-600 text-white text-sm font-semibold py-2 rounded-md hover:bg-blue-500 transition cursor-pointer">
                     Iniciar sesión
                 </a>
             @endauth
@@ -138,3 +136,4 @@
 
 </body>
 </html>
+
