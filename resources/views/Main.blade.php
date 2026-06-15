@@ -68,70 +68,56 @@
         <h2 class="text-3xl font-bold mb-8">Catálogo de perfumes</h2>
 
         <div class="grid grid-cols-1 xl:grid-cols-2 gap-6">
-
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex overflow-hidden h-56">
-                <div class="w-2/5 bg-gray-200">
-                    <img src="https://placehold.co/400x500/eaeaea/a3a3a3?text=Perfume+Dior" alt="Dior Sauvage" class="w-full h-full object-cover">
-                </div>
-                <div class="w-3/5 p-5 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-1">
-                            <div>
-                                <p class="text-xs text-gray-500 uppercase tracking-wide">Dior</p>
-                                <h3 class="text-xl font-bold">Sauvage</h3>
+            @foreach($perfumes as $perfume)
+                <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex overflow-hidden h-56">
+                    <div class="w-2/5 bg-gray-200">
+                        <img src="{{ $perfume->imagen_url ?? 'https://placehold.co/400x500/eaeaea/a3a3a3?text=Sin+Imagen' }}" alt="{{ $perfume->name }}" class="w-full h-full object-cover">
+                    </div>
+                    <div class="w-3/5 p-5 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-1">
+                                <div>
+                                    <p class="text-xs text-gray-500 uppercase tracking-wide">{{ $perfume->marca }}</p>
+                                    <h3 class="text-xl font-bold">{{ $perfume->name }}</h3>
+                                </div>
+                                <form action="{{ route('detalle.main') }}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="perfume_id" value="{{ $perfume->id }}">
+                                    <button type="submit" class="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-100 transition">Ver detalle</button>
+                                </form>
                             </div>
-                            <form action="{{ route('detalle.main') }}" method="post">
-                                @csrf
-                                <button type="submit" class="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-100 transition">Ver detalle</button>
-                            </form>
-                        </div>
-                        <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded-md mb-3">Amaderado</span>
-                        <p class="text-sm text-gray-600 mb-3">Fragancia fresca y especiada con notas modernas y gran presencia.</p>
+                            <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded-md mb-3">{{ $perfume->categoria_olfativa }}</span>
+                            <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ $perfume->descripcion }}</p>
 
-                        <div class="text-xs text-gray-700 space-y-1">
-                            <p><span class="font-semibold">Duración:</span> 8 horas</p>
-                            <p><span class="font-semibold">Proyección:</span> <span class="text-blue-600 font-medium">Intenso</span></p>
-                        </div>
-                    </div>
-                    <div class="flex items-center mt-3">
-                        <div class="text-yellow-400 text-sm">★★★★<span class="text-gray-300">★</span></div>
-                        <span class="text-xs text-gray-500 ml-2">(128 reviews)</span>
-                    </div>
-                </div>
-            </div>
+                            <div class="text-xs text-gray-700 space-y-1">
+                                @php
+                                    $promedioDuracion = $perfume->Reseña->avg('duracion') ?? $perfume->duracion ?? 0;
+                                @endphp
 
-            <div class="bg-white rounded-xl shadow-sm border border-gray-100 flex overflow-hidden h-56">
-                <div class="w-2/5 bg-gray-200">
-                    <img src="https://placehold.co/400x500/eaeaea/a3a3a3?text=Perfume+Chanel" alt="Bleu de Chanel" class="w-full h-full object-cover">
-                </div>
-                <div class="w-3/5 p-5 flex flex-col justify-between">
-                    <div>
-                        <div class="flex justify-between items-start mb-1">
-                            <div>
-                                <p class="text-xs text-gray-500 uppercase tracking-wide">Chanel</p>
-                                <h3 class="text-xl font-bold">Bleu de Chanel</h3>
+                                <p><span class="font-semibold">Duración:</span> {{ number_format($promedioDuracion, 1) }} horas</p>
+                                <p><span class="font-semibold">Proyección:</span> <span class="text-blue-600 font-medium">Moderado</span></p>
                             </div>
-                            <form action="{{ route('detalle') }}" method="post">
-                                @csrf
-                                <button type="submit" class="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-100 transition">Ver detalle</button>
-                            </form>
                         </div>
-                        <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded-md mb-3">Cítrico</span>
-                        <p class="text-sm text-gray-600 mb-3">Perfume elegante y sofisticado con fondo amaderado refinado.</p>
+                            <div class="flex items-center mt-3">
+                            @php
+                                $promedio = $perfume->Reseña->avg('calificacion') ?? 0;
+                                $estrellasLlenas = round($promedio);
+                                $estrellasVacias = 5 - $estrellasLlenas;
+                            @endphp
 
-                        <div class="text-xs text-gray-700 space-y-1">
-                            <p><span class="font-semibold">Duración:</span> 7 horas</p>
-                            <p><span class="font-semibold">Proyección:</span> <span class="text-blue-600 font-medium">Moderado</span></p>
+                            <div class="text-yellow-400 text-sm">
+                                {{ str_repeat('★', $estrellasLlenas) }}
+
+                                <span class="text-gray-300">{{ str_repeat('★', $estrellasVacias) }}</span>
+                            </div>
+
+                            <span class="text-xs text-gray-700 font-bold ml-2">{{ number_format($promedio, 1) }}</span>
+                            <span class="text-xs text-gray-500 ml-1">({{ $perfume->Reseña->count() }} reseñas)</span>
                         </div>
-                    </div>
-                    <div class="flex items-center mt-3">
-                        <div class="text-yellow-400 text-sm">★★★★★</div>
-                        <span class="text-xs text-gray-500 ml-2">(342 reviews)</span>
                     </div>
                 </div>
-            </div>
-
-            </div>
+            @endforeach
+        </div>
     </main>
 
 </body>

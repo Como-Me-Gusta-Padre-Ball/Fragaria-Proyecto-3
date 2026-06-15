@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Perfume;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -61,10 +62,11 @@ class AuthController extends Controller
             'email' => 'El correo o la contraseña son incorrectos.',
         ]);
     }
-
     public function main_page()
     {
-        return view('Main');
+        $perfumes = Perfume::with('Reseña')->get();
+
+        return view('Main', compact('perfumes'));
     }
 
     public function Detalle_page()
