@@ -12,9 +12,11 @@ class Reseña extends Model
     protected $table = 'Reseñas';
     protected $fillable = [
         'user_id',
+        'perfume_id',
         'comentario',
         'calificacion',
         'duracion',
+        'proyeccion',
         'fecha_publicacion',
     ];
     public function user()

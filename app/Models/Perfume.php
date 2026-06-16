@@ -11,12 +11,11 @@ class Perfume extends Model
         'name',
         'marca',
         'categoria_olfativa',
-        'duracion',
         'descripcion',
         'imagen_url',
     ];
     public function Reseña()
     {
-        return $this->hasMany(Reseña::class, 'user_id', 'id');
+        return $this->hasMany(Reseña::class, 'perfume_id', 'id');
     }
 }

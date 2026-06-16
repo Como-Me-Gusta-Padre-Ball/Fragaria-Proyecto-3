@@ -62,10 +62,23 @@ class AuthController extends Controller
             'email' => 'El correo o la contraseña son incorrectos.',
         ]);
     }
-    public function main_page()
+    public function main_page(Request $request)
     {
-        $perfumes = Perfume::with('Reseña')->get();
+        $query = Perfume::with('Reseña');
+        $query->when($request->search, function ($q) use ($request) {
+            $q->where('name', 'like', '%' . $request->search . '%')
+              ->orWhere('descripcion', 'like', '%' . $request->search . '%');
+        });
 
+        $query->when($request->marca, function ($q) use ($request) {
+            $q->where('marca', $request->marca);
+        });
+
+        $query->when($request->familia, function ($q) use ($request) {
+            $q->where('categoria_olfativa', $request->familia);
+        });
+
+        $perfumes = $query->get();
         return view('Main', compact('perfumes'));
     }
 

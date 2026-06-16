@@ -14,9 +14,11 @@ return new class extends Migration
         Schema::create('Reseñas', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('perfume_id')->constrained('perfumes')->onDelete('cascade');
             $table->text('comentario');
             $table->string('calificacion');
             $table->string('duracion');
+            $table->float('proyeccion')->nullable();
             $table->date('fecha_publicacion');
             $table->timestamps();
             $table->softDeletes();

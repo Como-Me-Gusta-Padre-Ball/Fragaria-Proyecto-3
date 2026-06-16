@@ -16,7 +16,6 @@ return new class extends Migration
             $table->string('name');
             $table->string('marca');
             $table->string('categoria_olfativa');
-            $table->string('duracion');
             $table->text('descripcion')->nullable();
             $table->string('imagen_url')->nullable();
             $table->timestamps();
