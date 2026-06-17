@@ -57,3 +57,30 @@ If you discover a security vulnerability within Laravel, please send an e-mail t
 ## License
 
 The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+
+
+
+Como conprobar con Thunder Client
+manda lo siguiente 
+php artisan serve
+
+abre las extensiones y descarga Thunder Client
+crea un New Request
+
+En la URL escribe: http://127.0.0.1:8000/api/login
+y en Body, cambia el email y la contraseña por una guardada en el servisio 
+{
+    "email": "correo@detuusuario.com",
+    "password": "tu_contraseña_real"
+}
+y mandalo, te deberia de enviar 200 y mas la notificasion y el Token
+Copialo y Crea otra New Request
+en GET http://127.0.0.1:8000/api/perfumes con el mismo email y contraseña
+
+Ve a la pestaña Auth y pega el Token que copiaste en el paso anterior
+
+
+
+
+
+
