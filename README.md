@@ -71,6 +71,7 @@ crea un New Request
 
 En la URL escribe: http://127.0.0.1:8000/api/login
 y en Body, cambia el email y la contraseña por una guardada en el servisio 
+
 {
     "email": "correo@detuusuario.com",
     "password": "tu_contraseña_real"
