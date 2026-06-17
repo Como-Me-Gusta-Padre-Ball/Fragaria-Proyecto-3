@@ -62,9 +62,11 @@ ________________________________________________________________________________
 
 Como conprobar con Thunder Client
 manda lo siguiente 
+
 php artisan serve
 
 abre las extensiones y descarga Thunder Client
+
 crea un New Request
 
 En la URL escribe: http://127.0.0.1:8000/api/login
