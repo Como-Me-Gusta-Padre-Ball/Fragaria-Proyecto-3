@@ -89,11 +89,9 @@
                                     <p class="text-xs text-gray-500 uppercase tracking-wide">{{ $perfume->marca }}</p>
                                     <h3 class="text-xl font-bold">{{ $perfume->name }}</h3>
                                 </div>
-                                <form action="{{ route('detalle.main') }}" method="post">
-                                    @csrf
-                                    <input type="hidden" name="perfume_id" value="{{ $perfume->id }}">
-                                    <button type="submit" class="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-100 transition">Ver detalle</button>
-                                </form>
+                                <a href="{{ route('detalle', $perfume->id) }}" class="btn btn-primary">Ver Detalle</a>
+                                    <button class="bg-blue-50 text-blue-600 text-xs font-semibold px-3 py-1 rounded-md hover:bg-blue-100 transition">Ver detalle</button>
+                                </a>
                             </div>
                             <span class="inline-block bg-gray-100 text-gray-600 text-[10px] px-2 py-1 rounded-md mb-3">{{ $perfume->categoria_olfativa }}</span>
                             <p class="text-sm text-gray-600 mb-3 line-clamp-2">{{ $perfume->descripcion }}</p>
@@ -142,4 +140,5 @@
 
 </body>
 </html>
+
 

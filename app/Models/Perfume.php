@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Perfume extends Model
 {
-        use HasFactory ;
+    use HasFactory ;
     protected $table = 'perfumes';
     protected $fillable = [
         'name',

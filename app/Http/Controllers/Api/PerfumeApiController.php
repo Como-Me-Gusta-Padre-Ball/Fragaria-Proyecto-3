@@ -32,7 +32,7 @@ class PerfumeApiController extends Controller
         ]);
     }
 
-    public function index(Request $request)
+    public function index(Request $request)       // debuelbe los perfumes en Json GG
     {
         $perfumes = Perfume::with('Reseña')
             ->when($request->search, function ($query) use ($request) {

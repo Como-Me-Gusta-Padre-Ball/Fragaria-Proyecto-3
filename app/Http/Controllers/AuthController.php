@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use App\Models\Perfume;
+use App\Models\Reseña;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -67,7 +68,7 @@ class AuthController extends Controller
         $query = Perfume::with('Reseña');
         $query->when($request->search, function ($q) use ($request) {
             $q->where('name', 'like', '%' . $request->search . '%')
-              ->orWhere('descripcion', 'like', '%' . $request->search . '%');
+                ->orWhere('descripcion', 'like', '%' . $request->search . '%');
         });
 
         $query->when($request->marca, function ($q) use ($request) {
@@ -82,9 +83,17 @@ class AuthController extends Controller
         return view('Main', compact('perfumes'));
     }
 
-    public function Detalle_page()
+    public function mostrarDetalle()
     {
-        return view('Detalle');
+        $reseñas = Reseña::with('user')->get(); // Trae las reseñas con sus usuarios
+        return view('Detalle', compact('reseñas'));
+    }
+    public function Detalle_page($id)
+    {
+
+        $perfume = Perfume::findOrFail($id);
+        $reseñas = Reseña::where('perfume_id', $id)->with('user')->get();
+        return view('Detalle', compact('perfume', 'reseñas'));
     }
 
     public function logoutUser(Request $request)
@@ -96,7 +105,61 @@ class AuthController extends Controller
         return redirect()->route('login');
     }
 
+    public function guardarResena(Request $request)
+    {
+        $request->validate([
+            'perfume_id' => 'required',
+            'calificacion' => 'required|integer|min:1|max:5',
+            'comentario' => 'required|string|max:1000',
+            'duracion' => 'required|integer|min:1|max:24',
+            'proyeccion' => 'required|integer',
+        ]);
 
+        // Buscamos si el usuario YA tiene una reseña para este perfume
+        $resenaExistente = Reseña::where('perfume_id', $request->perfume_id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        if ($resenaExistente) {
+            // 🌟 SI EXISTE: En lugar de rebotar con error, ACTUALIZAMOS sus datos (Modo Edición)
+            $resenaExistente->update([
+                'calificacion' => $request->calificacion,
+                'comentario' => $request->comentario,
+                'duracion' => $request->duracion,
+                'proyeccion' => $request->proyeccion,
+                'fecha_publicacion' => now()->toDateString(), // O el formato de fecha que uses
+            ]);
+
+            return back()->with('success', '¡Tu reseña ha sido actualizada con éxito!');
+        }
+
+        // 🌟 SI NO EXISTE: Creamos una nueva reseña común y corriente
+        Reseña::create([
+            'perfume_id' => $request->perfume_id,
+            'user_id' => Auth::id(),
+            'calificacion' => $request->calificacion,
+            'comentario' => $request->comentario,
+            'duracion' => $request->duracion,
+            'proyeccion' => $request->proyeccion,
+            'fecha_publicacion' => now()->toDateString(),
+        ]);
+
+        return back()->with('success', '¡Reseña publicada con éxito!');
+    }
+
+    public function eliminarResena($id)
+    {
+        $resena = Reseña::findOrFail($id);
+
+        if ($resena->user_id !== Auth::id()) {
+            return back()->withErrors(['autorizacion' => 'No tienes permiso para eliminar esta reseña.']);
+        }
+
+        // Usamos forceDelete() por si tu modelo tiene SoftDeletes activo y está "ocultando" el dato en lugar de borrarlo
+        $resena->forceDelete();
+
+        return back()->with('success', 'Tu reseña ha sido eliminada por completo de la base de datos.');
+    }
     public function check(Request $request)
     {
         $request->validate([
@@ -116,4 +179,3 @@ class AuthController extends Controller
         }
     }
 }
-
